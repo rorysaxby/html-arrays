@@ -12,14 +12,14 @@
         this.openElements = [this.array[0]];
 
         this.inspectArray(this.array);
-        
+
         console.log(this.html);
     };
 
     htmlArray.prototype.inspectArray = function(array){
-        if(this.array.length > 1){
-            for(var i = 1; i < this.array.length; i++){
-                this.checkType(this.array[i]);
+        if(array.length > 1){
+            for(var i = 1; i < array.length; i++){
+                this.checkType(array[i]);
 
                 if(i + 1 == array.length){
                     this.addCloseElement();
@@ -38,19 +38,24 @@
                 this.addString(item);
             break;
             case 'object':
-                this.addOpenElement(item);
+                this.addOpenElement(item[0]);
+                this.inspectArray(item);
             break;
         };
     };
 
-    htmlArray.prototype.addOpenElement = function(array){
-        this.html = this.html + '<' + array[0] + '>';
-        this.openElements.unshift(array[0]);
+    htmlArray.prototype.addOpenElement = function(item){
+        this.html = this.html + '<' + item + '>';
+        this.openElements.unshift(item);
     };
 
     htmlArray.prototype.addCloseElement = function(){
         this.html = this.html + '</' + this.openElements[0] + '>';
         this.openElements.splice(0, 1);
+    };
+
+    htmlArray.prototype.addString = function(string){
+        this.html = this.html + string;
     };
 
 
@@ -68,7 +73,7 @@
     };
 
     htmlArrayDemo.displayString = function(){
-
+        
     };
 
     htmlArrayDemo.init = function(){
