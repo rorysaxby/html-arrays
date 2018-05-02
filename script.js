@@ -13,7 +13,7 @@
 
         this.inspectArray(this.array);
 
-        console.log(this.html);
+        this.callback(this.html);
     };
 
     htmlArray.prototype.inspectArray = function(array){
@@ -68,14 +68,17 @@
     var htmlArrayDemo = {};
 
     htmlArrayDemo.getHtmlString = function(){
+
+        var exampleArray = ['div', 'test', ['h1', 'header', ['span', '<strong>more text</strong>']]];
+
         var demoString = new htmlArray({
-            array: ['div', 'test <span> inner text </span>', ' fun', ['h1', 'header', ['span', '<strong>more text</strong>']]],
-            callbackFn: htmlArrayDemo.displayString
+            array: exampleArray,
+            callback: htmlArrayDemo.displayString
         });
     };
 
-    htmlArrayDemo.displayString = function(){
-        
+    htmlArrayDemo.displayString = function(value){
+        htmlArrayDemo.target[0].append(value);
     };
 
     htmlArrayDemo.init = function(){
