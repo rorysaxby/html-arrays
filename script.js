@@ -55,7 +55,9 @@
     };
 
     htmlArray.prototype.addString = function(string){
-        this.html = this.html + string;
+        var s1 = string.replace(/</gi, "&lt;"),
+            s2 = s1.replace(/>/gi, "&gt;");
+        this.html = this.html + s2;
     };
 
 
@@ -67,7 +69,7 @@
 
     htmlArrayDemo.getHtmlString = function(){
         var demoString = new htmlArray({
-            array:['div', 'test', ['h1', 'header']],
+            array: ['div', 'test <span> inner text </span>', ' fun', ['h1', 'header', ['span', '<strong>more text</strong>']]],
             callbackFn: htmlArrayDemo.displayString
         });
     };
